@@ -1,0 +1,20 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+    "title": "Digital minimalism",
+    "author": "Cal Newport",
+    "url": "calnewport.com/digitalminimalism",
+    "likes": 1
+}
+
+###
+
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+    "title": "Digital minimalism",
+    "url": "calnewport.com/digitalminimalism",
+    "likes": 1
+}
