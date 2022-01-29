@@ -1,20 +1,15 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5vb3Rub290IiwiaWQiOiI2MWYyNmEzNDRlNGNhMjgzZmZmZjg4OTYiLCJpYXQiOjE2NDMyOTc2OTMsImV4cCI6MTY0MzMwMTI5M30.5zmakcgIzzH57d7UFaF0xc7OA5uPvgsNC2NKBjhVHYk
 
 {
     "title": "Digital minimalism",
     "author": "Cal Newport",
     "url": "calnewport.com/digitalminimalism",
-    "likes": 1
+    "likes": 10
 }
 
 ###
 
-POST http://localhost:3003/api/blogs
-Content-Type: application/json
-
-{
-    "title": "Digital minimalism",
-    "url": "calnewport.com/digitalminimalism",
-    "likes": 1
-}
+DELETE http://localhost:3003/api/blogs/61f2bc5f2a6770a092b80c57
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5vb3Rub290IiwiaWQiOiI2MWYyNmEzNDRlNGNhMjgzZmZmZjg4OTYiLCJpYXQiOjE2NDMyOTg1NjksImV4cCI6MTY0MzMwMjE2OX0.NQOGHsF3m4uNRYfGvAKuZK89YwI6aSLxxCIBeBmLN4c
