@@ -15,6 +15,7 @@ const Books = ({ show }) => {
   }
 
   const books = result.data.allBooks
+  console.log(books)
   let genres = books.map(b => b.genres).flat()
   //Remove duplicates:
   genres = [...new Set(genres)]

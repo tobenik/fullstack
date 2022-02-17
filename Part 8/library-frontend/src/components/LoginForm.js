@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/client'
 import { LOGIN } from '../queries'
 
 //From course material (P8 - d - User login):
-const LoginForm = ({ setToken, show, setPage }) => {
+const LoginForm = ({ setToken, show, setPage, client }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
@@ -14,6 +14,7 @@ const LoginForm = ({ setToken, show, setPage }) => {
       const token = result.data.login.value
       setToken(token)
       localStorage.setItem('library-user-token', token)
+      client.resetStore()
     }
   }, [result.data]) // eslint-disable-line
 

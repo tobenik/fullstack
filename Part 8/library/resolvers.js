@@ -40,7 +40,6 @@ const resolvers = {
       return await Author.find({})
     },
     me: (root, args, context) => {
-      console.log('me', context)
       return context.currentUser
     }
   },
@@ -48,7 +47,6 @@ const resolvers = {
   Mutation: {
     addBook: async (root, args, context) => {
       const currentUser = context.currentUser
-      console.log('addBook', context)
 
       if (!currentUser) {
         throw new AuthenticationError("not authenticated")
