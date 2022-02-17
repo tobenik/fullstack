@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useQuery } from '@apollo/client'
 import { ALL_BOOKS } from '../queries'
 
-const Books = (props) => {
+const Books = ({ show }) => {
   const result = useQuery(ALL_BOOKS)
+  const [genre, setGenre] = useState('all')
 
-  if (!props.show) {
+  if (!show) {
     return null
   }
 
@@ -14,10 +15,21 @@ const Books = (props) => {
   }
 
   const books = result.data.allBooks
+  let genres = books.map(b => b.genres).flat()
+  //Remove duplicates:
+  genres = [...new Set(genres)]
 
   return (
     <div>
       <h2>books</h2>
+
+      <div>
+        genre: 
+        <select onChange={({ target }) => setGenre(target.value)}>
+          <option defaultValue='all'>all</option>
+          {genres.map(g => <option key={g}>{g}</option>)}
+        </select>
+      </div>
 
       <table>
         <tbody>
@@ -31,11 +43,12 @@ const Books = (props) => {
             </th>
           </tr>
           {books.map(a =>
-            <tr key={a.title}>
-              <td>{a.title}</td>
-              <td>{a.author}</td>
-              <td>{a.published}</td>
-            </tr>
+            a.genres.includes(genre) || genre === 'all' ?
+              <tr key={a.title}>
+                <td>{a.title}</td>
+                <td>{a.author}</td>
+                <td>{a.published}</td>
+              </tr> : null
           )}
         </tbody>
       </table>
