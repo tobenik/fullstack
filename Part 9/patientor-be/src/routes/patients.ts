@@ -1,21 +1,33 @@
 import express from "express";
-import { getPublicPatients, addPatient } from "../services/patientService";
+import {
+  getPublicPatients,
+  addPatient,
+  getPatient,
+} from "../services/patientService";
 import { toNewPatient } from "../utils";
 
 const router = express.Router();
 
 router.get("/", (_req, res) => {
-  console.log("pinged patients /");
   res.send(getPublicPatients());
 });
 
+router.get("/:id", (req, res) => {
+  const patient = getPatient(req.params.id);
+  if (patient) {
+    if (!patient.entries) {
+      patient.entries = [];
+    }
+    res.send(patient);
+  } else {
+    res.sendStatus(404);
+  }
+});
+
 router.post("/", (req, res) => {
-  console.log("post to patients /");
   const newPatient = toNewPatient(req.body);
   const addedPatient = addPatient(newPatient);
   res.send(addedPatient);
-  console.log("newPatient", newPatient);
-  console.log(getPublicPatients());
 });
 
 export default router;

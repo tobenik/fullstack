@@ -6,6 +6,10 @@ export const getPatients = (): Patient[] => {
   return patients;
 };
 
+export const getPatient = (id: string): Patient | undefined => {
+  return patients.find((p) => p.id === id);
+};
+
 export const getPublicPatients = (): PublicPatient[] => {
   return patients.map(({ id, name, dateOfBirth, occupation, gender }) => ({
     id,
