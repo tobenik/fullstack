@@ -4,6 +4,7 @@ import patientServive from "../../services/patients";
 import { Patient } from "../../types";
 import { GenderIcon } from "./GenderIcon";
 import { PatientEntries } from "./PatientEntries";
+import { Button } from "@mui/material";
 
 export const PatientInfo = () => {
   const [patient, setPatient] = useState<Patient | undefined>();
@@ -34,6 +35,7 @@ export const PatientInfo = () => {
           <PatientEntries entries={patient.entries || []} />
         </div>
       ) : null}
+      <Button variant="contained">Add New Entry</Button>
     </>
   );
 };
