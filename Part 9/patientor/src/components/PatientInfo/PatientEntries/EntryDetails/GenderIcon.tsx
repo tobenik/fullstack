@@ -1,4 +1,4 @@
-import { Gender } from "../../types";
+import { Gender } from "../../../../types";
 import { Male, Female, Transgender } from "@mui/icons-material";
 
 export const GenderIcon = ({ gender }: { gender: Gender }) => {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Diagnosis, Entry } from "../../types";
-import diagnosesServive from "../../services/diagnoses";
+import { Diagnosis, Entry } from "../../../types";
+import diagnosesServive from "../../../services/diagnoses";
 import { EntryDetails } from "./EntryDetails";
 
 export const PatientEntries = ({ entries }: { entries: Entry[] }) => {

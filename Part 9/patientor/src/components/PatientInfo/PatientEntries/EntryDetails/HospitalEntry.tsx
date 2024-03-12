@@ -1,5 +1,5 @@
 import { LocalHospital } from "@mui/icons-material";
-import { HospitalEntry } from "../../types";
+import { HospitalEntry } from "../../../../types";
 
 interface EntryDetailsProps {
   entry: HospitalEntry;

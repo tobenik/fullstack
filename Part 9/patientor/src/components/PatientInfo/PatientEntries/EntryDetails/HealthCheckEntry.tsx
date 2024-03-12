@@ -1,5 +1,5 @@
 import { HealthAndSafety } from "@mui/icons-material";
-import { HealthCheckEntry } from "../../types";
+import { HealthCheckEntry } from "../../../../types";
 
 interface EntryDetailsProps {
   entry: HealthCheckEntry;

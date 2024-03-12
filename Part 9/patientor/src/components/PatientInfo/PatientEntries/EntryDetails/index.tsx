@@ -1,4 +1,4 @@
-import { Diagnosis, Entry } from "../../types";
+import { Diagnosis, Entry } from "../../../../types";
 import { HealthCheckEntryBox } from "./HealthCheckEntry";
 import { HospitalEntryBox } from "./HospitalEntry";
 import { OccupationalHealthcareEntryBox } from "./OccupationalHealthcareEntry";

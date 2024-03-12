@@ -1,5 +1,5 @@
 import { Construction } from "@mui/icons-material";
-import { OccupationalHealthcareEntry } from "../../types";
+import { OccupationalHealthcareEntry } from "../../../../types";
 
 interface EntryDetailProps {
   entry: OccupationalHealthcareEntry;
