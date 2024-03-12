@@ -3,7 +3,11 @@ import { Diagnosis, Entry } from "../../../types";
 import diagnosesServive from "../../../services/diagnoses";
 import { EntryDetails } from "./EntryDetails";
 
-export const PatientEntries = ({ entries }: { entries: Entry[] }) => {
+interface Props {
+  entries: Entry[];
+}
+
+export const PatientEntries = ({ entries }: Props) => {
   const [diagnoses, setDiagnoses] = useState<Array<Diagnosis> | []>([]);
 
   useEffect(() => {

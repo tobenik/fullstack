@@ -38,7 +38,9 @@ export const PatientInfo = () => {
             <Button variant="contained" onClick={() => setViewForm(!viewForm)}>
               {viewForm ? "Cancel" : "Add New Entry"}
             </Button>
-            {viewForm && <EntryForm />}
+            {viewForm && (
+              <EntryForm setPatient={setPatient} setViewForm={setViewForm} />
+            )}
           </div>
           <PatientEntries entries={patient.entries || []} />
         </div>

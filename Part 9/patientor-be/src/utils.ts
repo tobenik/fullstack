@@ -75,7 +75,7 @@ const isEntryType = (type: string): type is EntryType => {
 
 const toEntryType = (type: unknown): EntryType => {
   if (!type || !isString(type) || !isEntryType(type)) {
-    throw new Error("Incorrect or missing data");
+    throw new Error("Incorrect or missing entry type.");
   }
   return type;
 };
@@ -90,7 +90,7 @@ const isHealthCheckRating = (rating: number): rating is HealthCheckRating => {
 
 const parseHealthCheckRating = (rating: unknown): HealthCheckRating => {
   if (!rating || !isNumber(rating) || !isHealthCheckRating(rating)) {
-    throw new Error("Incorrect or missing data");
+    throw new Error("Incorrect or missing health check rating.");
   }
   return rating;
 };
@@ -108,7 +108,7 @@ const parseDiagnosisCodes = (codes: unknown): string[] => {
 
 const toHealthCheckEntry = (object: unknown): Entry => {
   if (!object || typeof object !== "object") {
-    throw new Error("Incorrect or missing data");
+    throw new Error("Incorrect or missing data.");
   }
   if (
     "description" in object &&
@@ -133,7 +133,7 @@ const toHealthCheckEntry = (object: unknown): Entry => {
     }
     return baseEntry;
   }
-  throw new Error("Incorrect data: a field is missing");
+  throw new Error("Incorrect data: a field is missing.");
 };
 
 const toHospitalEntry = (object: unknown): Entry => {
@@ -254,8 +254,8 @@ export const toEntry = (object: unknown): Entry => {
       case EntryType.OccupationalHealthcare:
         return toOccupationalHealthcareEntry(object);
       default:
-        throw new Error("Incorrect or missing entry type");
+        throw new Error("Incorrect or missing entry type.");
     }
   }
-  throw new Error("Incorrect data: a field is missing");
+  throw new Error("Incorrect data: a field is missing.");
 };

@@ -29,17 +29,25 @@ router.post("/", (req, res) => {
 });
 
 router.post("/:id/entries", (req, res) => {
-  const patient = getPatient(req.params.id);
-  if (patient) {
+  try {
     const newEntry = toEntry(req.body);
     if (newEntry) {
+      const patient = getPatient(req.params.id);
+      if (!patient) {
+        res.sendStatus(404).send("Patient not found");
+        return;
+      }
       const updatedPatient = addEntry(patient.id, newEntry);
       res.send(updatedPatient);
     } else {
-      res.sendStatus(400);
+      res.sendStatus(400).send("Invalid entry");
     }
-  } else {
-    res.sendStatus(404);
+  } catch (e) {
+    if (e instanceof Error) {
+      res.status(400).send(e.message);
+    } else {
+      res.sendStatus(404);
+    }
   }
 });
 
