@@ -1,97 +1,85 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
-import patientService from "../../../services/patients";
 import { Patient } from "../../../types";
-import { Alert } from "@mui/material";
+import { Alert, MenuItem, Select, SelectChangeEvent } from "@mui/material";
+import { HealthCheckForm } from "./HealthCheckForm";
+import { HospitalForm } from "./HospitalForm";
+import { OccupationalHealthcareForm } from "./OccupationalHealthcareForm";
 
 interface Props {
   setPatient: React.Dispatch<React.SetStateAction<Patient | undefined>>;
   setViewForm: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+enum EntryFormType {
+  Hospital = "Hospital",
+  OccupationalHealthcare = "Occupational Healthcare",
+  HealthCheck = "Health Check",
+}
+
+const style = {
+  header: {
+    margin: "10px",
+  },
+  form: {
+    padding: "10px",
+    margin: "10px",
+    border: "1px solid black",
+  },
+};
+
 export const EntryForm = ({ setPatient, setViewForm }: Props) => {
-  const params = useParams<{ id: string }>();
+  const [entryType, setEntryType] = useState<EntryFormType>(
+    EntryFormType.Hospital
+  );
   const [error, setError] = useState<string>();
-  const [date, setDate] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [specialist, setSpecialist] = useState<string>("");
-  const [diagnosisCodes, setDiagnosisCodes] = useState<string>("");
-  const [healthCheckRating, setHealthCheckRating] = useState<string>("");
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (params.id) {
-      try {
-        const updatedPatient = await patientService.addEntry(params.id, {
-          type: "HealthCheck",
-          id: "",
-          date,
-          description,
-          specialist,
-          diagnosisCodes: diagnosisCodes.split(", "),
-          healthCheckRating: parseInt(healthCheckRating),
-        });
-        setPatient(updatedPatient);
-        setDate("");
-        setDescription("");
-        setSpecialist("");
-        setDiagnosisCodes("");
-        setHealthCheckRating("");
-        setViewForm(false);
-      } catch (e: unknown) {
-        if (e instanceof Error) {
-          setError(e.message);
-        }
-      }
+
+  const isEntryType = (param: string): param is EntryFormType => {
+    return Object.values(EntryFormType).includes(param as EntryFormType);
+  };
+
+  const changeForm = (e: SelectChangeEvent<string>) => {
+    if (!isEntryType(e.target.value)) {
+      setError("Invalid entry type.");
+      return;
     }
+    setEntryType(e.target.value);
   };
 
   return (
-    <div>
-      <h3>New Healthcheck Entry</h3>
-      <form onSubmit={handleSubmit}>
-        {error && <Alert severity="error">{error}</Alert>}
-        <div>
-          <label htmlFor="date">Date</label>
-          <input
-            id="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="description">Description</label>
-          <input
-            id="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="specialist">Specialist</label>
-          <input
-            id="specialist"
-            value={specialist}
-            onChange={(e) => setSpecialist(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="diagnosisCodes">Diagnosis Codes</label>
-          <input
-            id="diagnosisCodes"
-            value={diagnosisCodes}
-            onChange={(e) => setDiagnosisCodes(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="healthCheckRating">Health Check Rating</label>
-          <input
-            id="healthCheckRating"
-            value={healthCheckRating}
-            onChange={(e) => setHealthCheckRating(e.target.value)}
-          />
-        </div>
-        <button type="submit">Submit</button>
-      </form>
+    <div style={style.form}>
+      <h3 style={style.header}>New Entry</h3>
+
+      <Select onChange={changeForm} value={entryType}>
+        <MenuItem value={EntryFormType.Hospital}>Hospital</MenuItem>
+        <MenuItem value={EntryFormType.OccupationalHealthcare}>
+          Occupational Healthcare
+        </MenuItem>
+        <MenuItem value={EntryFormType.HealthCheck}>Health Check</MenuItem>
+      </Select>
+
+      {error && <Alert severity="error">{error}</Alert>}
+
+      {entryType === EntryFormType.Hospital && (
+        <HospitalForm
+          setViewForm={setViewForm}
+          setPatient={setPatient}
+          setError={setError}
+        />
+      )}
+      {entryType === EntryFormType.OccupationalHealthcare && (
+        <OccupationalHealthcareForm
+          setViewForm={setViewForm}
+          setPatient={setPatient}
+          setError={setError}
+        />
+      )}
+      {entryType === EntryFormType.HealthCheck && (
+        <HealthCheckForm
+          setViewForm={setViewForm}
+          setPatient={setPatient}
+          setError={setError}
+        />
+      )}
     </div>
   );
 };
