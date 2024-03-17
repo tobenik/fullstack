@@ -14,6 +14,15 @@ export const GET_REPOS = gql`
   ${FULL_REPO}
 `;
 
+export const GET_REPO = gql`
+  query getRepo($id: ID!) {
+    repository(id: $id) {
+      ...FullRepo
+    }
+  }
+  ${FULL_REPO}
+`;
+
 export const GET_ME = gql`
   query {
     me {
