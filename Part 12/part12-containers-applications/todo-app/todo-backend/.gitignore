@@ -1,6 +1,9 @@
 # mongo bindings
 mongo_data/
 
+# redis bindings
+redis_data/
+
 # Logs
 logs
 *.log
