@@ -3,3 +3,4 @@ build/
 Part 9/flight-diary
 .env
 rate-repository-api/
+.DS_Store
