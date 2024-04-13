@@ -1,0 +1,39 @@
+Script started on Sat Apr 13 20:57:00 2024
+[1m[7m%[27m[1m[0m                                                                                                                                      ]7;file://T-MacBook-Air.local/Users/tobenikko/Code/fullstack/Part%2012/part12-containers-applications/script-answers[0m[27m[24m[Jtobenikko@T-MacBook-Air script-answers % [K[?2004hddockerp  ps[?2004l
+CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS          PORTS                     NAMES
+e0c4dca34674   mongo     "docker-entrypoint.s…"   19 minutes ago   Up 19 minutes   0.0.0.0:3400->27017/tcp   todo-backend-mongo-1
+1343a36d9603   redis     "docker-entrypoint.s…"   19 minutes ago   Up 19 minutes   0.0.0.0:3500->6379/tcp    todo-backend-redis-1
+[1m[7m%[27m[1m[0m                                                                                                                                      ]7;file://T-MacBook-Air.local/Users/tobenikko/Code/fullstack/Part%2012/part12-containers-applications/script-answers[0m[27m[24m[Jtobenikko@T-MacBook-Air script-answers % [K[?2004hddocker exec -it 13[?2004l
+"docker exec" requires at least 2 arguments.
+See 'docker exec --help'.
+
+Usage:  docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
+
+Execute a command in a running container
+[1m[7m%[27m[1m[0m                                                                                                                                      ]7;file://T-MacBook-Air.local/Users/tobenikko/Code/fullstack/Part%2012/part12-containers-applications/script-answers[0m[27m[24m[Jtobenikko@T-MacBook-Air script-answers % [K[?2004hdocker exec -it 13 bash[?2004l
+[?2004hroot@1343a36d9603:/data# redis-cli KEYS *
+[?2004l1) "added_todos"
+[?2004hroot@1343a36d9603:/data# redis-cli KEYS **      GET added_todos
+[?2004l"6"
+[?2004hroot@1343a36d9603:/data# redis-cli GET added_todosT[1P[1P[1P[1@S[1@E[1@T added_todos ""9"0"0"1"
+[?2004lOK
+[?2004hroot@1343a36d9603:/data# redis-cli SET added_todos "9001"[7PGET added_todosSET added_todos "9001"root@1343a36d9603:/data# [Kcurl http         redis-cli SET added_todos "9001"[7PGET added_todos
+[?2004l"9002"
+[?2004hroot@1343a36d9603:/data# redis-cli GET added_todos[1P[1P[1P[1@D[1@E[1@L
+[?2004l(integer) 1
+[?2004hroot@1343a36d9603:/data# redis-cli DEL added_todosGET added_todos
+[?2004l(nil)
+[?2004hroot@1343a36d9603:/data# redis-cli GET added_todos
+[?2004l"7"
+[?2004hroot@1343a36d9603:/data# ^C[?2004l[?2004h[?2004l
+[?2004hroot@1343a36d9603:/data# exit
+[?2004lexit
+[1m[7m%[27m[1m[0m                                                                                                                                      ]7;file://T-MacBook-Air.local/Users/tobenikko/Code/fullstack/Part%2012/part12-containers-applications/script-answers[0m[27m[24m[Jtobenikko@T-MacBook-Air script-answers % [K[?2004heexit[?2004l
+
+Saving session...
+...copying shared history...
+...saving history...truncating history files...
+...completed.
+Deleting expired sessions...none found.
+
+Script done on Sat Apr 13 21:02:29 2024
