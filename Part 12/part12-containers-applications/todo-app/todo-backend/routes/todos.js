@@ -1,14 +1,13 @@
 const express = require("express");
 const { Todo } = require("../mongo");
-// const { getAsync, setAsync } = require("../redis/index.js");
+const { getAsync, setAsync } = require("../redis/index.js");
 
 const router = express.Router();
 
 /* GET todos listing. */
 router.get("/", async (_, res) => {
   const todos = await Todo.find({});
-  // const todosAdded = await getAsync("added_todos");
-  // await setAsync("added_todos", Number(todosAdded));
+  await setAsync("added_todos", todos.length);
   res.send(todos);
 });
 
@@ -19,8 +18,8 @@ router.post("/", async (req, res) => {
     done: false,
   });
   // Increment cache
-  // const todosAdded = await getAsync("added_todos");
-  // await setAsync("added_todos", (Number(todosAdded) + 1).toString());
+  const todosAdded = await getAsync("added_todos");
+  await setAsync("added_todos", Number(todosAdded) + 1);
   res.send(todo);
 });
 
